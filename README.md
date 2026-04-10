@@ -44,13 +44,13 @@ make SUBTARGET=tiny
 To cross-compile for Windows
 
 ```
-sudo make TARGETOS=windows PTR64=1 OVERRIDE_CC=x86_64-w64-mingw32-gcc OVERRIDE_CXX=x86_64-w64-mingw32-g++ OVERRIDE_LD=x86_64-w64-mingw32-ld MINGW64=/usr** REGENIE=1 OPTIMIZE=3 -j5
+sudo make TARGETOS=windows PTR64=1 OVERRIDE_CC=x86_64-w64-mingw32-gcc OVERRIDE_CXX=x86_64-w64-mingw32-g++ OVERRIDE_LD=x86_64-w64-mingw32-ld MINGW64=/usr** REGENIE=1 OPTIMIZE=3 -j7
 ```
 
 To cross-compile a smaller build specifically for Cave games
 
 ```
-sudo make TARGETOS=windows PTR64=1 OVERRIDE_CC=x86_64-w64-mingw32-gcc OVERRIDE_CXX=x86_64-w64-mingw32-g++ OVERRIDE_LD=x86_64-w64-mingw32-ld MINGW64=/usr** SUBTARGET=cave SOURCES=src/mame/cave REGENIE=1 OPTIMIZE=3 -j5
+sudo make TARGETOS=windows PTR64=1 OVERRIDE_CC=x86_64-w64-mingw32-gcc OVERRIDE_CXX=x86_64-w64-mingw32-g++ OVERRIDE_LD=x86_64-w64-mingw32-ld MINGW64=/usr** SUBTARGET=cave SOURCES=src/mame/atlus/cave.cpp,src/mame/cave REGENIE=1 OPTIMIZE=3 -j7
 ```
 
 for a build including a small subset of supported systems.
