@@ -94,6 +94,11 @@ if _OPTIONS["gcc"]~=nil then
 		}
 	end
 end
+if _OPTIONS["targetos"]=="asmjs" then
+		buildoptions_c {
+			"-Wno-error=format", -- expat ptrdiff_t format mismatch
+		}
+end
 if _OPTIONS["targetos"]=="windows" then
 		buildoptions_c {
 			"-Wno-error=format", -- GCC with UCRT produces warnings for the non-standard I64 size modifier
@@ -233,46 +238,6 @@ links {
 	ext_lib("zstd"),
 }
 end
-
-
---------------------------------------------------
--- SoftFloat library objects
---------------------------------------------------
-
-project "softfloat"
-	uuid "04fbf89e-4761-4cf2-8a12-64500cf0c5c5"
-	kind "StaticLib"
-
-	options {
-		"ForceCPP",
-	}
-
-	includedirs {
-		MAME_DIR .. "src/osd",
-	}
-
-	configuration { "gmake or ninja" }
-		buildoptions_cpp {
-			"-x c++",
-		}
-
-	configuration { "vs*" }
-if _OPTIONS["vs"]==nil then
-		buildoptions {
-			"/wd4244", -- warning C4244: 'argument' : conversion from 'xxx' to 'xxx', possible loss of data
-			"/wd4146", -- warning C4146: unary minus operator applied to unsigned type, result still unsigned
-			"/wd4018", -- warning C4018: 'x' : signed/unsigned mismatch
-		}
-end
-	configuration { }
-
-	files {
-		MAME_DIR .. "3rdparty/softfloat/softfloat.c",
-		MAME_DIR .. "3rdparty/softfloat/fsincos.c",
-		MAME_DIR .. "3rdparty/softfloat/fpatan.c",
-		MAME_DIR .. "3rdparty/softfloat/fyl2x.c",
-		MAME_DIR .. "3rdparty/softfloat/f2xm1.c",
-	}
 
 
 --------------------------------------------------
@@ -638,6 +603,7 @@ end
 		MAME_DIR .. "3rdparty/softfloat3/bochs_ext/fyl2x.c",
 		MAME_DIR .. "3rdparty/softfloat3/bochs_ext/poly.c",
 		MAME_DIR .. "3rdparty/softfloat3/bochs_ext/extF80_scale.c",
+		MAME_DIR .. "3rdparty/softfloat3/bochs_ext/isNaN.c",
 	}
 
 
@@ -1185,40 +1151,31 @@ end
 	configuration { }
 
 	files {
-		MAME_DIR .. "3rdparty/portmidi/pm_common/portmidi.c",
 		MAME_DIR .. "3rdparty/portmidi/pm_common/pmutil.c",
+		MAME_DIR .. "3rdparty/portmidi/pm_common/portmidi.c",
 	}
 
 	if _OPTIONS["targetos"]=="windows" then
 		files {
-			MAME_DIR .. "3rdparty/portmidi/porttime/ptwinmm.c",
 			MAME_DIR .. "3rdparty/portmidi/pm_win/pmwin.c",
 			MAME_DIR .. "3rdparty/portmidi/pm_win/pmwinmm.c",
 			MAME_DIR .. "3rdparty/portmidi/porttime/ptwinmm.c",
 		}
-	end
-
-	if _OPTIONS["targetos"]=="linux" then
+	elseif _OPTIONS["targetos"]=="linux" then
 		files {
 			MAME_DIR .. "3rdparty/portmidi/pm_linux/pmlinux.c",
 			MAME_DIR .. "3rdparty/portmidi/pm_linux/pmlinuxalsa.c",
-			MAME_DIR .. "3rdparty/portmidi/pm_linux/finddefault.c",
 			MAME_DIR .. "3rdparty/portmidi/porttime/ptlinux.c",
 		}
-	end
-	if _OPTIONS["targetos"]=="netbsd" then
+	elseif _OPTIONS["targetos"]=="netbsd" then
 		files {
 			MAME_DIR .. "3rdparty/portmidi/pm_linux/pmlinux.c",
-			MAME_DIR .. "3rdparty/portmidi/pm_linux/finddefault.c",
 			MAME_DIR .. "3rdparty/portmidi/porttime/ptlinux.c",
 		}
-	end
-	if _OPTIONS["targetos"]=="macosx" then
+	elseif _OPTIONS["targetos"]=="macosx" then
 		files {
 			MAME_DIR .. "3rdparty/portmidi/pm_mac/pmmac.c",
 			MAME_DIR .. "3rdparty/portmidi/pm_mac/pmmacosxcm.c",
-			MAME_DIR .. "3rdparty/portmidi/pm_mac/finddefault.c",
-			MAME_DIR .. "3rdparty/portmidi/pm_mac/readbinaryplist.c",
 			MAME_DIR .. "3rdparty/portmidi/porttime/ptmacosx_mach.c",
 		}
 	end
@@ -1893,6 +1850,13 @@ project "wdlfft"
 project "ymfm"
 	uuid "2403a536-cb0a-4b50-b41f-10c17917689b"
 	kind "StaticLib"
+
+	configuration { "gmake or ninja" }
+		if _OPTIONS["targetos"]=="asmjs" then
+			buildoptions_cpp {
+				"-Wno-array-bounds", -- ymfm_fm.ipp accesses operator array index past 12 in template code clang can't fully analyse
+			}
+		end
 
 	configuration { }
 		defines {
