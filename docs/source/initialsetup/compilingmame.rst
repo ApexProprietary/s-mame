@@ -83,6 +83,11 @@ sources in parallel::
 Microsoft Windows
 -----------------
 
+The information here is very detailed, and assumes you’re aware of the options
+available and what they mean.  As an alternative, we also provide `a tutorial
+for compiling MAME on Windows <https://https://www.mamedev.org/tools/>`_ on our
+web site.
+
 MAME for Windows is built using the MSYS2 environment.  You will need a 64-bit
 version of Windows 10 1809 or later and a reasonably up-to-date MSYS2
 installation.  Building for 64-bit ARM (AArch64) requires a 64-bit ARM system
@@ -110,24 +115,6 @@ These instructions assume you have some familiarity with MSYS2 and the
   <https://www.msys2.org/>`_.
 * Install packages necessary to build MAME.  At the very least, you’ll need
   ``bash``, ``git`` and ``make``.
-* For debugging you may want to install ``gdb``.
-* To build the HTML user/developer documentation, you’ll need
-  ``mingw-w64-clang-x86_64-librsvg``, ``mingw-w64-clang-x86_64-python-sphinx``,
-  ``mingw-w64-clang-x86_64-python-sphinx_rtd_theme`` and
-  ``mingw-w64-clang-x86_64-python-sphinxcontrib-svg2pdfconverter`` for a CLANG64
-  environment (or alternatively ``mingw-w64-clang-aarch64-librsvg``,
-  ``mingw-w64-clang-aarch64-python-sphinx``,
-  ``mingw-w64-clang-aarch64-python-sphinx_rtd_theme`` and
-  ``mingw-w64-clang-aarch64-python-sphinxcontrib-svg2pdfconverter`` a CLANGARM64
-  environment).
-* To build the PDF documentation, you’ll additionally need
-  ``mingw-w64-ucrt-x86_64-texlive-latex-extra`` and
-  ``mingw-w64-ucrt-x86_64-texlive-fonts-recommended`` for a UCRT64 environment,
-  or ``mingw-w64-clang-x86_64-texlive-latex-extra`` and
-  ``mingw-w64-clang-x86_64-texlive-fonts-recommended`` for a CLANG64
-  environment.  You must build the PDF documentation using the UCRT64 or CLANG64
-  environment as the TeX Live tools currently do not work with the CLANGARM64
-  environment.
 * To generate API documentation from source, you’ll need ``doxygen``.
 * If you plan to rebuild bgfx shaders and you want to rebuild the GLSL parser,
   you’ll need ``bison``.
@@ -145,9 +132,17 @@ building for.
   and archiver), you’ll need ``mingw-w64-ucrt-x86_64-lld``,
   ``mingw-w64-ucrt-x86_64-llvm-tools``, ``mingw-w64-ucrt-x86_64-llvm`` and
   ``mingw-w64-ucrt-x86_64-libc++``.
+* For debugging, you may want to install ``mingw-w64-ucrt-x86_64-gdb``.
 * To build against the portable SDL interfaces, you’ll need
   ``mingw-w64-ucrt-x86_64-SDL2`` and ``mingw-w64-ucrt-x86_64-SDL2_ttf``.
 * To build the Qt debugger, you’ll need ``mingw-w64-ucrt-x86_64-qt6-base``.
+* To build the HTML user/developer documentation, you’ll need
+  ``mingw-w64-ucrt-x86_64-librsvg``, ``mingw-w64-ucrt-x86_64-python-sphinx``,
+  ``mingw-w64-ucrt-x86_64-python-sphinx_rtd_theme`` and
+  ``mingw-w64-ucrt-x86_64-python-sphinxcontrib-svg2pdfconverter``.
+* To build the PDF documentation, you’ll additionally need
+  ``mingw-w64-ucrt-x86_64-texlive-latex-extra`` and
+  ``mingw-w64-ucrt-x86_64-texlive-fonts-recommended``.
 * Open the **ucrt64.exe** helper from the **msys64** installation folder or the
   **MSYS2 UCRT64** shortcut from the start menu to start a Bash shell configured
   with the correct paths and environment variables.
@@ -160,9 +155,17 @@ building for.
   and archiver), you’ll need ``mingw-w64-clang-x86_64-lld``,
   ``mingw-w64-clang-x86_64-llvm-tools``, ``mingw-w64-clang-x86_64-llvm`` and
   ``mingw-w64-clang-x86_64-libc++``.
+* For debugging, you may want to install ``mingw-w64-clang-x86_64-gdb``.
 * To build against the portable SDL interfaces, you’ll need
   ``mingw-w64-clang-x86_64-SDL2`` and ``mingw-w64-clang-x86_64-SDL2_ttf``.
 * To build the Qt debugger, you’ll need ``mingw-w64-clang-x86_64-qt6-base``.
+* To build the HTML user/developer documentation, you’ll need
+  ``mingw-w64-clang-x86_64-librsvg``, ``mingw-w64-clang-x86_64-python-sphinx``,
+  ``mingw-w64-clang-x86_64-python-sphinx_rtd_theme`` and
+  ``mingw-w64-clang-x86_64-python-sphinxcontrib-svg2pdfconverter``.
+* To build the PDF documentation, you’ll additionally need
+  ``mingw-w64-clang-x86_64-texlive-latex-extra`` and
+  ``mingw-w64-clang-x86_64-texlive-fonts-recommended``.
 * Open the **clang64.exe** helper from the **msys64** installation folder or use
   the **MSYS2 CLANG64** shortcut to start a Bash shell configured with the
   correct paths and environment variables.
@@ -175,9 +178,19 @@ building for.
   and archiver), you’ll need ``mingw-w64-clang-aarch64-lld``,
   ``mingw-w64-clang-aarch64-llvm-tools``, ``mingw-w64-clang-aarch64-llvm`` and
   ``mingw-w64-clang-aarch64-libc++``.
+* For debugging, you may want to install ``mingw-w64-clang-aarch64-lldb``.
 * To build against the portable SDL interfaces, you’ll need
   ``mingw-w64-clang-aarch64-SDL2`` and ``mingw-w64-clang-aarch64-SDL2_ttf``.
 * To build the Qt debugger, you’ll need ``mingw-w64-clang-aarch64-qt6-base``.
+* To build the HTML user/developer documentation, you’ll need
+  ``mingw-w64-clangarm64-x86_64-librsvg``,
+  ``mingw-w64-clangarm64-x86_64-python-sphinx``,
+  ``mingw-w64-clangarm64-x86_64-python-sphinx_rtd_theme`` and
+  ``mingw-w64-clangarm64-x86_64-python-sphinxcontrib-svg2pdfconverter``.
+* It is not currently possible to build the PDF documentation using the
+  CLANGARM64 environment as the TeX Live tools do not work.  You may be able
+  to use the UCRT64 or CLANG64 environment to build the PDF documentation on a
+  64-bit ARM system.
 * Open the **clangarm64.exe** helper from the **msys64** installation folder or
   use the **MSYS2 CLANGARM64** shortcut to start a Bash shell configured with
   the correct paths and environment variables.
@@ -227,7 +240,7 @@ directory).  MSYS2 tools work best in an MSYS2 terminal, while MinGW tools work
 best in a Microsoft command prompt.
 
 The most obvious symptom of this is that arrow keys don’t work in interactive
-programs if you run them in the wrong kind of terminal.  If you run MinGW gdb or
+programs if you run them in the wrong kind of terminal.  If you run MinGW GDB or
 python from an MSYS2 terminal window, command history won’t work and it may not
 be possible to interrupt an attached program with gdb.  Similarly it may be very
 difficult to edit using MSYS2 vim in a Microsoft command prompt window.
@@ -237,9 +250,9 @@ earlier in the ``PATH`` environment variable for the build environments.  If you
 want to use an interactive MSYS2 program from an MSYS2 shell, you may need to
 type the absolute path to avoid using the MinGW equivalent instead.
 
-MSYS2 gdb may have issues debugging MinGW programs like MAME.  You may get
-better results by installing the MinGW version of gdb and running it from a
-Microsoft command prompt window to debug MAME.
+MSYS2 GDB has issues debugging MinGW programs like MAME.  You will get better
+results by installing the MinGW version of GDB or LLDB and running it from a
+Windows Command Prompt window to debug MAME.
 
 GNU Make supports both POSIX-style shells (e.g. bash) and the Microsoft cmd.exe
 shell.  When using the cmd.exe shell, the ``copy`` command doesn’t provide a
@@ -316,11 +329,11 @@ Compilation is exactly as described above in All Platforms.
 Apple macOS
 -----------
 
-You’ll need a few prerequisites to get started.  Make sure you’re on macOS 11.0
-Big Sur or later.  You will need SDL 2 version 2.0.14 or later.  You’ll also
-need to install Python 3 – it’s currently included with the Xcode command line
-tools, but you can also install a stand-alone version or get it via the Homebrew
-package manager.
+You’ll need a few prerequisites to get started.  Make sure you’re on macOS 14.5
+“Sonoma” or later and Xcode 16.2 or later.  You will need SDL 2 version 2.0.14
+or later.  You’ll also need to install Python 3 – it’s currently included with
+the Xcode command line tools, but you can also install a stand-alone version or
+get it via the Homebrew package manager.
 
 * Install **Xcode** from the Mac App Store or
   `ADC <https://developer.apple.com/download/more/>`_ (AppleID required).
@@ -457,7 +470,7 @@ can install these packages with
     pacman -S mingw-w64-x86_64-librsvg mingw-w64-x86_64-python-sphinx mingw-w64-x86_64-python-sphinxcontrib-svg2pdfconverter
 
 If you intend to make a PDF via LaTeX, you’ll need to install a LaTeX
-distribution such as TeX Live:
+distribution such as TeX Live:
 
 .. code-block:: bash
 
@@ -483,7 +496,7 @@ On Debian, you’ll need to install the **librsvg2-bin** package:
     sudo apt-get install librsvg2-bin
 
 If you intend to make a PDF via LaTeX, you’ll need to install a LaTeX
-distribution such as TeX Live:
+distribution such as TeX Live:
 
 .. code-block:: bash
 
